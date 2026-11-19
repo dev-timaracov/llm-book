@@ -4,7 +4,8 @@
 //   3. добавьте импорт и строку в массив BOOKS ниже
 // Подробности — books/README.md.
 import gpt from '../books/gpt/index.js';
+import db from '../books/db/index.js';
 
-export const BOOKS = [gpt];
+export const BOOKS = [gpt, db];
 
 export const findBook = (id) => BOOKS.find((b) => b.id === id);

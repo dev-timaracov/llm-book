@@ -14,7 +14,8 @@ function niceTicks(lo, hi, n = 5) {
 const tickFmt = (v) => {
   const a = Math.abs(v);
   if (a === 0) return '0';
-  if (a >= 1e4 || a < 1e-3) return v.toExponential(0);
+  if (a >= 1e7 || a < 1e-3) return v.toExponential(0);
+  if (a >= 1e4) return Number.isInteger(v) ? String(v) : String(Math.round(v));
   return String(+v.toPrecision(3));
 };
 

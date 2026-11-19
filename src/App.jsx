@@ -1,96 +1,59 @@
 import React, { useEffect, useState } from 'react';
-import { CHAPTERS } from './chapters/index.js';
+import { BOOKS, findBook } from './books.js';
+import Library from './Library.jsx';
+import BookReader from './BookReader.jsx';
+import { storage } from './shared/storage.js';
 
-function readHash() {
-  const h = window.location.hash.replace(/^#\/?/, '');
-  const [id, anchor] = h.split('#');
-  return { id: CHAPTERS.find((c) => c.id === id) ? id : CHAPTERS[0].id, anchor };
-}
-
-function loadDone() {
-  try { return JSON.parse(localStorage.getItem('llmbook-done') || '{}'); } catch { return {}; }
+/**
+ * Маршруты (hash-роутинг, работает на GitHub Pages без настройки сервера):
+ *   #/                 — библиотека учебников
+ *   #/<книга>          — первая глава книги
+ *   #/<книга>/<глава>  — глава
+ * Старые ссылки вида #/<глава> (когда учебник был один) перенаправляются в книгу «gpt».
+ */
+function parseHash() {
+  const parts = window.location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
+  if (!parts.length) return { view: 'library' };
+  const book = findBook(parts[0]);
+  if (book) {
+    const ch = book.chapters.find((c) => c.id === parts[1]) || book.chapters[0];
+    return { view: 'book', book, chapter: ch };
+  }
+  const legacy = BOOKS.find((b) => b.chapters.some((c) => c.id === parts[0]));
+  if (legacy) {
+    window.location.replace(`#/${legacy.id}/${parts[0]}`);
+    return { view: 'book', book: legacy, chapter: legacy.chapters.find((c) => c.id === parts[0]) };
+  }
+  return { view: 'library' };
 }
 
 export default function App() {
-  const [route, setRoute] = useState(readHash);
-  const [open, setOpen] = useState(false);
-  const [done, setDone] = useState(loadDone);
-  const [theme, setTheme] = useState(() => { try { return localStorage.getItem('llmbook-theme') || 'auto'; } catch { return 'auto'; } });
+  const [route, setRoute] = useState(parseHash);
+  const [theme, setTheme] = useState(() => storage.get('books-theme') || storage.get('llmbook-theme') || 'auto');
 
   useEffect(() => {
-    const on = () => { setRoute(readHash()); setOpen(false); };
+    const on = () => setRoute(parseHash());
     window.addEventListener('hashchange', on);
     return () => window.removeEventListener('hashchange', on);
   }, []);
   useEffect(() => {
-    if (route.anchor) document.getElementById(route.anchor)?.scrollIntoView();
-    else window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
+    document.title = route.view === 'book' ? `${route.chapter.title} — ${route.book.title}` : 'Интерактивные учебники';
   }, [route]);
   useEffect(() => {
     if (theme === 'auto') document.documentElement.removeAttribute('data-theme');
     else document.documentElement.setAttribute('data-theme', theme);
-    try { localStorage.setItem('llmbook-theme', theme); } catch { /* приватный режим */ }
+    storage.set('books-theme', theme);
   }, [theme]);
 
-  const idx = CHAPTERS.findIndex((c) => c.id === route.id);
-  const ch = CHAPTERS[idx];
-  const Comp = ch.component;
-  const prev = CHAPTERS[idx - 1], next = CHAPTERS[idx + 1];
-  const toggleDone = () => {
-    const d = { ...done, [ch.id]: !done[ch.id] };
-    setDone(d);
-    try { localStorage.setItem('llmbook-done', JSON.stringify(d)); } catch { /* ignore */ }
-  };
-  const nDone = CHAPTERS.filter((c) => done[c.id]).length;
-
-  let lastPart = null;
-  return (
-    <div className="layout">
-      {open && <div className="scrim" onClick={() => setOpen(false)} />}
-      <nav className={'sidebar' + (open ? ' open' : '')}>
-        <h1>GPT с нуля</h1>
-        <p className="subtitle">Интерактивный учебник: от производной до своей обученной языковой модели · пройдено {nDone}/{CHAPTERS.length}</p>
-        <div className="tools">
-          <select value={theme} onChange={(e) => setTheme(e.target.value)} aria-label="Тема">
-            <option value="auto">Тема: как в системе</option>
-            <option value="light">Светлая</option>
-            <option value="dark">Тёмная</option>
-          </select>
-        </div>
-        {CHAPTERS.map((c) => {
-          const head = c.part !== lastPart ? <div className="part">{c.part}</div> : null;
-          lastPart = c.part;
-          return (
-            <React.Fragment key={c.id}>
-              {head}
-              <a className={'navitem' + (c.id === ch.id ? ' active' : '')} href={'#/' + c.id}>
-                <span className="num">{c.num}</span>
-                <span>{c.title}</span>
-                {done[c.id] && <span className="done">✓</span>}
-              </a>
-            </React.Fragment>
-          );
-        })}
-      </nav>
-      <div className="main">
-        <div className="topbar">
-          <button className="btn small" onClick={() => setOpen(true)}>☰ Оглавление</button>
-          <span className="muted">{ch.num}. {ch.title}</span>
-        </div>
-        <article className="content">
-          <div className="chapter-kicker">{ch.part} · Глава {ch.num}</div>
-          <Comp />
-          <div style={{ marginTop: 40, textAlign: 'center' }}>
-            <button className={'btn' + (done[ch.id] ? '' : ' primary')} onClick={toggleDone}>
-              {done[ch.id] ? '✓ Глава пройдена (снять отметку)' : 'Отметить главу как пройденную'}
-            </button>
-          </div>
-          <div className="pager">
-            {prev ? <a href={'#/' + prev.id}><div className="dir">← Назад</div>{prev.num}. {prev.title}</a> : <span />}
-            {next ? <a href={'#/' + next.id} style={{ textAlign: 'right' }}><div className="dir">Дальше →</div>{next.num}. {next.title}</a> : <span />}
-          </div>
-        </article>
-      </div>
-    </div>
+  const themeSelect = (
+    <select value={theme} onChange={(e) => setTheme(e.target.value)} aria-label="Тема">
+      <option value="auto">Тема: как в системе</option>
+      <option value="light">Светлая</option>
+      <option value="dark">Тёмная</option>
+    </select>
   );
+
+  if (route.view === 'book') return <BookReader key={route.book.id} book={route.book} chapter={route.chapter} themeSelect={themeSelect} />;
+  return <Library books={BOOKS} themeSelect={themeSelect} />;
 }

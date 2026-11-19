@@ -2,8 +2,8 @@ node_modules/
 dist/
 __pycache__/
 *.pyc
-python/data/
-python/out/
+**/python/data/
+**/python/out/
 *.bin
 *.pt
 .DS_Store

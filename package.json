@@ -1,9 +1,9 @@
 {
-  "name": "llm-book",
+  "name": "interactive-books",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Интерактивный учебник: как устроены GPT и LLM — от производной до собственной обученной модели",
+  "description": "Библиотека интерактивных учебников: формулы, визуализации, код",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

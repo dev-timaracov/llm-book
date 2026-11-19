@@ -282,3 +282,24 @@ svg .grid line { stroke: var(--border); stroke-opacity: 0.6; }
 .matrix .mc.hl2 { background: var(--amber-soft); outline: 1px solid var(--amber); }
 .toc-list { columns: 2; column-gap: 28px; }
 @media (max-width: 700px) { .toc-list { columns: 1; } }
+
+/* ---------- библиотека учебников ---------- */
+.library { max-width: 1080px; margin: 0 auto; padding: 48px 24px 80px; }
+.lib-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; margin-bottom: 28px; }
+.lib-head h1 { font-size: 36px; margin: 0 0 6px; letter-spacing: -0.01em; }
+.lib-head .lead { font-size: 18px; color: var(--muted); margin: 0; max-width: 640px; }
+.lib-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
+.book-card { display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: 14px; padding: 20px; background: var(--panel); box-shadow: var(--shadow); color: var(--text); transition: border-color 0.15s, transform 0.15s; }
+.book-card:hover { border-color: var(--accent); text-decoration: none; transform: translateY(-2px); }
+.book-icon { font-size: 34px; line-height: 1; margin-bottom: 10px; }
+.book-card h2 { font-size: 22px; margin: 0 0 4px; }
+.book-sub { color: var(--accent); font-weight: 600; font-size: 14.5px; margin: 0 0 10px; }
+.book-desc { font-size: 15px; color: var(--muted); margin: 0 0 12px; flex: 1; line-height: 1.55; }
+.book-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.tag { font-size: 12px; padding: 2px 9px; border-radius: 99px; background: var(--bg-soft); border: 1px solid var(--border); color: var(--muted); }
+.book-meta { display: flex; justify-content: space-between; font-size: 13.5px; color: var(--muted); margin-bottom: 8px; }
+.book-progress { height: 5px; background: var(--bg-soft); border-radius: 99px; overflow: hidden; }
+.book-progress > div { height: 100%; background: var(--green); }
+.sidebar .backlink { display: block; font-size: 13.5px; margin: 0 6px 12px; color: var(--muted); }
+.sidebar .backlink:hover { color: var(--accent); }
+@media (max-width: 700px) { .library { padding: 28px 16px 60px; } .lib-head h1 { font-size: 28px; } }

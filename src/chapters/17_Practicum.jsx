@@ -54,8 +54,7 @@ python prepare.py --input мои_книги.txt --tokenizer bpe --vocab_size 204
       <table>
         <thead><tr><th>Железо</th><th>Команда</th><th>Параметров</th><th>Ориентир по времени</th><th>Ожидаемый val loss (Шекспир, символы)</th></tr></thead>
         <tbody>
-          <tr><td>Ноутбук, CPU (быстрый тест)</td><td className="mono small">--device cpu --n_layer 4 --n_head 4 --n_embd 128 --block_size 64 --batch_size 32 --max_iters 1500 --eval_interval 500 --eval_iters 20 --dropout 0.0 --lr 2e-3</td><td>0.8M</td><td>2–3 мин (4 ядра)</td><td>≈1.72 (проверено)</td></tr>
-          <tr><td>Ноутбук, CPU</td><td className="mono small">{CPU_CMD}</td><td>1.8M</td><td>{CPU_TIME}</td><td>см. лог ниже (проверено)</td></tr>
+          <tr><td>Ноутбук, CPU</td><td className="mono small">{CPU_CMD}</td><td>0.8M</td><td>{CPU_TIME}</td><td>≈1.72 (проверено, лог ниже)</td></tr>
           <tr><td>Apple M1/M2/M3</td><td className="mono small">--device mps --n_layer 6 --n_head 6 --n_embd 256 --block_size 128 --batch_size 32 --max_iters 4000</td><td>4.8M</td><td>15–30 мин</td><td>≈1.55</td></tr>
           <tr><td>GPU 6–8 ГБ</td><td className="mono small">(значения по умолчанию) python train.py</td><td>10.7M</td><td>5–15 мин</td><td>≈1.47–1.50</td></tr>
           <tr><td>GPU 16–24 ГБ, большой корпус (BPE)</td><td className="mono small">--n_layer 12 --n_head 12 --n_embd 768 --block_size 512 --batch_size 16 --grad_accum 4 --dropout 0.0 --lr 6e-4 --max_iters 20000 --compile 1</td><td>~85M + эмбеддинги</td><td>часы</td><td>зависит от корпуса</td></tr>
@@ -65,7 +64,7 @@ python prepare.py --input мои_книги.txt --tokenizer bpe --vocab_size 204
 
       <h2>Шаг 4. Обучение</h2>
       <Code lang="bash" title="терминал">{`python train.py ${CPU_CMD}`}</Code>
-      <p>Реальный лог этой команды (Linux, 4 ядра CPU):</p>
+      <p>Реальный лог этой команды (Linux, 4 ядра CPU; служебные строки в начале сокращены):</p>
       <Code lang="bash" title="вывод train.py">{CPU_LOG}</Code>
       <h3>Как читать лог</h3>
       <ul>
@@ -82,7 +81,7 @@ python sample.py --start "ROMEO:" --num_tokens 400 --temperature 0.8 --top_k 40
 `}</Code>
       <p>Образец от модели из лога выше:</p>
       <Code lang="bash" title="вывод sample.py">{CPU_SAMPLE}</Code>
-      <p>Это не Шекспир, но структура пьесы, имена персонажей и английские слова уже на месте — модель с 1.8 млн параметров за минуты обучения на ноутбуке. С GPU и конфигурацией по умолчанию (10M параметров, val ≈ 1.47) текст становится заметно связнее.</p>
+      <p>Это не Шекспир, но структура пьесы, имена персонажей и английские слова уже на месте — модель с 0.8 млн параметров за 2.5 минуты обучения на ноутбуке. С GPU и конфигурацией по умолчанию (10M параметров, val ≈ 1.47) текст становится заметно связнее.</p>
 
       <h2>Шаг 6. Эксперименты — где начинается понимание</h2>
       <ol>

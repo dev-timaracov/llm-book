@@ -1,0 +1,22 @@
+{
+  "name": "llm-book",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Интерактивный учебник: как устроены GPT и LLM — от производной до собственной обученной модели",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "highlight.js": "^11.10.0",
+    "katex": "^0.16.11",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^5.4.11"
+  }
+}

@@ -72,8 +72,8 @@ function NumericCheck() {
   const h = 1e-5, num = (f(x + h).data - f(x - h).data) / (2 * h);
   return (
     <Widget title="Проверка autograd численной производной" badge="проверка">
-      <Slider label="x" value={x} min={-2} max={2} step={0.01} onChange={setX} />
-      <p className="mono small"><M t={r`L(x) = \ln\big(\tanh(x^2)\cdot x + e^x\big)`} /><br />
+      <Slider label="x" value={x} min={-0.7} max={2} step={0.01} onChange={setX} />
+      <p className="mono small"><M t={r`L(x) = \ln\big(\tanh(x^2)\cdot x + e^x\big)`} /> <span className="muted">(определена при x &gt; ≈ −0.76: аргумент логарифма должен быть положительным)</span><br />
         autograd: dL/dx = <b>{fmt(leaf.grad, 8)}</b><br />
         численно (L(x+h) − L(x−h)) / 2h = <b>{fmt(num, 8)}</b><br />
         узлов в графе: {order.length}

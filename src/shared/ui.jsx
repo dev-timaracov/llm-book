@@ -62,12 +62,27 @@ export function Code({ children, lang = 'python', title, collapse }) {
     }
   }, [code, lang]);
   const copy = () => {
+    const done = () => { setCopied(true); setTimeout(() => setCopied(false), 1200); };
+    const fallback = () => {
+      // запасной путь для браузеров без доступа к Clipboard API (http, встроенные окна)
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = code;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        const ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        if (ok) done();
+      } catch { /* копирование недоступно — ничего не делаем */ }
+    };
     try {
-      navigator.clipboard.writeText(code);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1200);
+      if (navigator.clipboard?.writeText) navigator.clipboard.writeText(code).then(done, fallback);
+      else fallback();
     } catch {
-      /* буфер обмена недоступен */
+      fallback();
     }
   };
   return (
@@ -210,7 +225,7 @@ export function Bars({ items, max, digits = 3 }) {
   );
 }
 
-export const fmt = (x, d = 3) => (Number.isFinite(x) ? x.toFixed(d) : String(x));
+export const fmt = (x, d = 3) => (Number.isFinite(x) ? x.toFixed(d) : x === Infinity ? '∞' : x === -Infinity ? '−∞' : '—');
 export const fmtBig = (x) => {
   if (!Number.isFinite(x)) return String(x);
   const a = Math.abs(x);

@@ -303,3 +303,12 @@ svg .grid line { stroke: var(--border); stroke-opacity: 0.6; }
 .sidebar .backlink { display: block; font-size: 13.5px; margin: 0 6px 12px; color: var(--muted); }
 .sidebar .backlink:hover { color: var(--accent); }
 @media (max-width: 700px) { .library { padding: 28px 16px 60px; } .lib-head h1 { font-size: 28px; } }
+
+/* ---------- защита от переполнения ---------- */
+/* скрытая MathML-копия формулы KaTeX позиционирована абсолютно — держим её внутри формулы */
+.katex { position: relative; }
+.content table { position: relative; }
+/* длинные URL и идентификаторы переносим где угодно, а не растягиваем страницу */
+.refs a, .content a[href^='http'] { overflow-wrap: anywhere; word-break: break-word; }
+.content p, .content li, .content td, .callout { overflow-wrap: break-word; }
+.content code:not(.hljs) { overflow-wrap: anywhere; }

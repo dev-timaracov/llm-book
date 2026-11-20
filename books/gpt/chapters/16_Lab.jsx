@@ -62,7 +62,10 @@ export default function Lab() {
     const nVal = Math.max(cfg.blockSize + 2, Math.floor(data.length * 0.1));
     const rng = makeRng(1234);
     const model = new TinyGPT({ vocabSize: chars.length, ...cfg }, rng);
-    S.current = { chars, stoi, train: data.slice(0, -nVal), val: data.slice(-nVal), model, opt: new AdamW(model.parameters(), { lr }), rng, step: 0, hist: [], valHist: [], gnorm: 0, att: null, tps: 0 };
+    // для обучения нужны окна длины block_size и в train, и в val, и хотя бы два разных символа
+    const minLen = 3 * cfg.blockSize + 10;
+    const tooSmall = chars.length < 2 || data.length < minLen;
+    S.current = { chars, stoi, train: data.slice(0, -nVal), val: data.slice(-nVal), model, opt: new AdamW(model.parameters(), { lr }), rng, step: 0, hist: [], valHist: [], gnorm: 0, att: null, tps: 0, tooSmall, minLen };
     setSample('');
     force((n) => n + 1);
   };
@@ -79,7 +82,7 @@ export default function Lab() {
   };
 
   useEffect(() => {
-    if (!running) return;
+    if (!running || S.current?.tooSmall) return;
     let alive = true;
     const loop = () => {
       if (!alive) return;
@@ -150,6 +153,7 @@ export default function Lab() {
           {Object.keys(CORPORA).map((k) => <button key={k} className={'btn small' + (k === corpusName ? ' primary' : '')} onClick={() => { setCorpusName(k); setText(CORPORA[k]); }}>{k}</button>)}
           <button className={'btn small' + (corpusName === 'свой' ? ' primary' : '')} onClick={() => setCorpusName('свой')}>свой текст</button>
         </div>
+        {s.tooSmall && <p className="small" style={{ color: 'var(--red)' }}>Текст слишком короткий для обучения: нужно не меньше {s.minLen} символов (три окна по block_size = {cfg.blockSize} — на обучение и проверку) и хотя бы два разных символа. Сейчас: {[...text].length}.</p>}
         {corpusName === 'свой' && <textarea rows={5} value={text} onChange={(e) => setText(e.target.value)} placeholder="Вставьте сюда любой текст (желательно от 2000 символов)" />}
         <div className="controls">
           <Slider label="n_layer" value={cfg.nLayer} min={1} max={4} onChange={(v) => setCfg({ ...cfg, nLayer: v })} />
@@ -160,7 +164,7 @@ export default function Lab() {
         <div className="controls">
           <Slider label="learning rate" value={lr} min={1e-4} max={1e-2} step={1e-4} onChange={setLr} format={(v) => v.toExponential(1)} />
           <Slider label="batch size" value={batch} min={1} max={32} onChange={setBatch} />
-          <button className="btn primary" onClick={() => setRunning(!running)}>{running ? '⏸ пауза' : '▶ обучать'}</button>
+          <button className="btn primary" disabled={s.tooSmall} onClick={() => setRunning(!running)}>{running ? '⏸ пауза' : '▶ обучать'}</button>
           <button className="btn" onClick={() => { setRunning(false); init(); }}>⟲ заново</button>
         </div>
         <div className="stats">
@@ -183,7 +187,7 @@ export default function Lab() {
         <div className="controls" style={{ marginTop: 10 }}>
           <input type="text" value={prompt} onChange={(e) => setPrompt(e.target.value)} placeholder="затравка (можно пусто)" style={{ flex: 1, minWidth: 160 }} />
           <Slider label="temperature" value={temp} min={0.1} max={2} step={0.05} onChange={setTemp} />
-          <button className="btn primary" onClick={() => generate()}>сгенерировать</button>
+          <button className="btn primary" disabled={s.tooSmall} onClick={() => generate()}>сгенерировать</button>
         </div>
         <div className="sample-out">{sample || 'Нажмите «сгенерировать». До обучения выйдет случайный набор символов; через 300–500 шагов появятся слова и структура реплик.'}</div>
         {attMat && (

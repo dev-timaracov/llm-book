@@ -32,11 +32,12 @@ function AnalogyWidget() {
 function SinusoidWidget() {
   const [d, setD] = useState(32);
   const [T, setT] = useState(48);
-  const [p0, setP0] = useState(20);
+  const [p0raw, setP0] = useState(20);
   const pe = useMemo(() => Array.from({ length: T }, (_, pos) => Array.from({ length: d }, (_, i) => {
     const k = Math.floor(i / 2), freq = 1 / Math.pow(10000, (2 * k) / d);
     return i % 2 === 0 ? Math.sin(pos * freq) : Math.cos(pos * freq);
   })), [d, T]);
+  const p0 = Math.min(p0raw, T - 1);
   const sim = pe.map((row) => row.reduce((s, v, i) => s + v * pe[p0][i], 0) / (d / 2));
   return (
     <Widget title="Синусоидальное позиционное кодирование">

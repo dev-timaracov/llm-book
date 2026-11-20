@@ -60,7 +60,7 @@ function BPEWidget() {
       <div className="stats">
         <Stat k="символов" v={[...text].length} />
         <Stat k="токенов" v={toks.length} />
-        <Stat k="сжатие" v={fmt([...text].length / toks.length, 2) + '×'} />
+        <Stat k="сжатие" v={toks.length ? fmt([...text].length / toks.length, 2) + '×' : '—'} />
         <Stat k="разных токенов в тексте" v={vocab.size} />
       </div>
       <div style={{ lineHeight: 2 }}>

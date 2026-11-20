@@ -25,14 +25,18 @@ function BigramWidget() {
     }
     const prob = (c, n) => {
       const m = counts.get(c); const tot = m ? [...m.values()].reduce((a, b) => a + b, 0) : 0;
-      return ((m?.get(n) || 0) + alpha) / (tot + alpha * chars.length);
+      const denom = tot + alpha * chars.length;
+      // контекст ни разу не встречался и сглаживания нет (α = 0): данных нет — считаем все символы равновероятными
+      if (denom === 0) return 1 / chars.length;
+      return ((m?.get(n) || 0) + alpha) / denom;
     };
     let nll = 0, N = 0;
     for (let i = order; i < t.length; i++) { nll -= Math.log(prob(t.slice(i - order, i), t[i])); N++; }
-    return { t, chars, counts, prob, nll: nll / Math.max(1, N) };
+    return { t, chars, counts, prob, nll: N ? nll / N : NaN };
   }, [text, order, alpha]);
   const sample = useMemo(() => {
     const rng = makeRng(seed);
+    if (model.chars.length === 0) return '';
     let out = model.t.slice(0, order);
     for (let i = 0; i < 160; i++) {
       const c = out.slice(out.length - order);
@@ -59,8 +63,9 @@ function BigramWidget() {
         <Stat k="словарь V" v={model.chars.length} />
         <Stat k="средний NLL на обучающем тексте" v={fmt(model.nll, 3)} />
         <Stat k="перплексия" v={fmt(Math.exp(model.nll), 2)} />
-        <Stat k="ln V (угадывание)" v={fmt(Math.log(model.chars.length), 3)} />
+        <Stat k="ln V (угадывание)" v={model.chars.length ? fmt(Math.log(model.chars.length), 3) : '—'} />
       </div>
+      {model.t.length <= order && <p className="small" style={{ color: 'var(--red)' }}>Текст слишком короткий: нужно хотя бы {order + 1} символа, чтобы увидеть хоть одну пару «контекст → следующий символ».</p>}
       <div className="row">
         {heat && (
           <div className="col">

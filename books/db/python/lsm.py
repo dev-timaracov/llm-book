@@ -1,5 +1,5 @@
 """
-lsm.py — key-value хранилище на LSM-дереве с нуля (глава 4).
+lsm.py — key-value хранилище на LSM-дереве с нуля (глава 7).
 
 LSM-дерево (Log-Structured Merge-Tree) предложили О'Нил и др. (1996). Так устроены
 LevelDB, RocksDB, Cassandra, HBase, ScyllaDB. Путь записи:

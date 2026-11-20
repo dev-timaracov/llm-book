@@ -80,4 +80,77 @@ export const REFS = [
   { id: 'zobel2006', authors: 'J. Zobel, A. Moffat', title: 'Inverted Files for Text Search Engines', venue: 'ACM Computing Surveys, 38(2)', year: 2006, url: doi('10.1145/1132956.1132959') },
   { id: 'pelkonen2015', authors: 'T. Pelkonen, S. Franklin, J. Teller и др.', title: 'Gorilla: A Fast, Scalable, In-Memory Time Series Database', venue: 'PVLDB, 8(12)', year: 2015, url: 'https://www.vldb.org/pvldb/vol8/p1816-teller.pdf' },
   { id: 'malkov2016', authors: 'Y. A. Malkov, D. A. Yashunin', title: 'Efficient and Robust Approximate Nearest Neighbor Search Using Hierarchical Navigable Small World Graphs (HNSW)', venue: 'IEEE TPAMI (препринт arXiv:1603.09320)', year: 2016, url: 'https://arxiv.org/abs/1603.09320' },
+  // --- модель данных, SQL, нормализация ---
+  { id: 'chen1976', authors: 'P. P.-S. Chen', title: 'The Entity-Relationship Model — Toward a Unified View of Data', venue: 'ACM TODS, 1(1), 9–36', year: 1976, url: doi('10.1145/320434.320440') },
+  { id: 'bernstein1976', authors: 'P. A. Bernstein', title: 'Synthesizing Third Normal Form Relations from Functional Dependencies', venue: 'ACM TODS, 1(4), 277–298', year: 1976, url: doi('10.1145/320493.320489') },
+  { id: 'kent1983', authors: 'W. Kent', title: 'A Simple Guide to Five Normal Forms in Relational Database Theory', venue: 'Communications of the ACM, 26(2), 120–125', year: 1983, url: doi('10.1145/358024.358054') },
+  { id: 'codd1979', authors: 'E. F. Codd', title: 'Extending the Database Relational Model to Capture More Meaning (NULL и трёхзначная логика)', venue: 'ACM TODS, 4(4), 397–434', year: 1979, url: doi('10.1145/320107.320109') },
+  { id: 'abiteboul1995', authors: 'S. Abiteboul, R. Hull, V. Vianu', title: 'Foundations of Databases (книга, свободно доступна)', venue: 'Addison-Wesley', year: 1995, url: 'http://webdam.inria.fr/Alice/' },
+  { id: 'leis2015window', authors: 'V. Leis, K. Kundhikanjana, A. Kemper, T. Neumann', title: 'Efficient Processing of Window Functions in Analytical SQL Queries', venue: 'PVLDB, 8(10)', year: 2015, url: 'https://www.vldb.org/pvldb/vol8/p1058-leis.pdf' },
+
+  // --- сортировка и сжатие ---
+  { id: 'graefe2006', authors: 'G. Graefe', title: 'Implementing Sorting in Database Systems', venue: 'ACM Computing Surveys, 38(3)', year: 2006, url: doi('10.1145/1132960.1132964') },
+  { id: 'abadi2006', authors: 'D. J. Abadi, S. R. Madden, M. C. Ferreira', title: 'Integrating Compression and Execution in Column-Oriented Database Systems', venue: 'SIGMOD 2006', year: 2006, url: doi('10.1145/1142473.1142548') },
+  { id: 'zukowski2006', authors: 'M. Zukowski, S. Héman, N. Nes, P. Boncz', title: 'Super-Scalar RAM-CPU Cache Compression (PFOR)', venue: 'ICDE 2006', year: 2006, url: doi('10.1109/ICDE.2006.150') },
+  { id: 'lemire2015', authors: 'D. Lemire, L. Boytsov', title: 'Decoding Billions of Integers per Second through Vectorization', venue: 'Software: Practice and Experience, 45(1)', year: 2015, url: 'https://arxiv.org/abs/1209.2137' },
+  { id: 'boncz2020', authors: 'P. Boncz, T. Neumann, V. Leis', title: 'FSST: Fast Random Access String Compression', venue: 'PVLDB, 13(11)', year: 2020, url: 'https://www.vldb.org/pvldb/vol13/p2649-boncz.pdf' },
+
+  // --- колоночные СУБД ---
+  { id: 'abadi2013', authors: 'D. Abadi, P. Boncz, S. Harizopoulos, S. Idreos, S. Madden', title: 'The Design and Implementation of Modern Column-Oriented Database Systems', venue: 'Foundations and Trends in Databases, 5(3)', year: 2013, url: doi('10.1561/1900000024') },
+  { id: 'lamb2012', authors: 'A. Lamb, M. Fuller, R. Varadarajan и др.', title: 'The Vertica Analytic Database: C-Store 7 Years Later', venue: 'PVLDB, 5(12)', year: 2012, url: 'https://arxiv.org/abs/1208.4173' },
+  { id: 'raasveldt2019', authors: 'M. Raasveldt, H. Mühleisen', title: 'DuckDB: an Embeddable Analytical Database', venue: 'SIGMOD 2019 (демо)', year: 2019, url: doi('10.1145/3299869.3320212') },
+  { id: 'schulze2024', authors: 'R. Schulze, T. Schreiber, I. Yatsishin, R. Dahimene, A. Milovidov', title: 'ClickHouse — Lightning Fast Analytics for Everyone', venue: 'PVLDB, 17(12)', year: 2024, url: 'https://www.vldb.org/pvldb/vol17/p3731-schulze.pdf' },
+  { id: 'melnik2010', authors: 'S. Melnik, A. Gubarev, J. J. Long и др.', title: 'Dremel: Interactive Analysis of Web-Scale Datasets', venue: 'PVLDB, 3(1)', year: 2010, url: 'https://www.vldb.org/pvldb/vldb2010/papers/R29.pdf' },
+  { id: 'parquet', authors: 'Apache Software Foundation', title: 'Apache Parquet: документация формата', venue: 'parquet.apache.org', year: 2024, url: 'https://parquet.apache.org/docs/' },
+
+  // --- key-value и документные ---
+  { id: 'matsunobu2020', authors: 'Y. Matsunobu, S. Dong, H. Lee', title: "MyRocks: LSM-Tree Database Storage Engine Serving Facebook's Social Graph", venue: 'PVLDB, 13(12)', year: 2020, url: 'https://www.vldb.org/pvldb/vol13/p3217-matsunobu.pdf' },
+  { id: 'elhemali2022', authors: 'M. Elhemali, N. Gallagher, N. Gordon и др.', title: 'Amazon DynamoDB: A Scalable, Predictably Performant, and Fully Managed NoSQL Database Service', venue: 'USENIX ATC 2022', year: 2022, url: 'https://www.usenix.org/conference/atc22/presentation/elhemali' },
+  { id: 'shukla2015', authors: 'D. Shukla, S. Thota, K. Raman и др.', title: 'Schema-Agnostic Indexing with Azure DocumentDB', venue: 'PVLDB, 8(12)', year: 2015, url: 'https://www.vldb.org/pvldb/vol8/p1668-shukla.pdf' },
+  { id: 'liu2014', authors: 'Z. H. Liu, B. Hammerschmidt, D. McMahon', title: 'Closing the Functional and Performance Gap between SQL and NoSQL', venue: 'SIGMOD 2014', year: 2014, url: doi('10.1145/2588555.2595628') },
+
+  // --- графы ---
+  { id: 'francis2018', authors: 'N. Francis, A. Green, P. Guagliardo и др.', title: 'Cypher: An Evolving Query Language for Property Graphs', venue: 'SIGMOD 2018', year: 2018, url: doi('10.1145/3183713.3190657') },
+  { id: 'deutsch2022', authors: 'A. Deutsch, N. Francis, A. Green и др.', title: 'Graph Pattern Matching in GQL and SQL/PGQ', venue: 'SIGMOD 2022', year: 2022, url: 'https://arxiv.org/abs/2112.06217' },
+  { id: 'page1999', authors: 'L. Page, S. Brin, R. Motwani, T. Winograd', title: 'The PageRank Citation Ranking: Bringing Order to the Web', venue: 'Stanford InfoLab, Technical Report', year: 1999, url: 'http://ilpubs.stanford.edu:8090/422/' },
+  { id: 'malewicz2010', authors: 'G. Malewicz, M. H. Austern, A. J. C. Bik и др.', title: 'Pregel: A System for Large-Scale Graph Processing', venue: 'SIGMOD 2010', year: 2010, url: doi('10.1145/1807167.1807184') },
+  { id: 'sakr2021', authors: 'S. Sakr, A. Bonifati, H. Voigt и др.', title: 'The Future Is Big Graphs: A Community View on Graph Processing Systems', venue: 'Communications of the ACM, 64(9)', year: 2021, url: doi('10.1145/3434642') },
+
+  // --- векторы ---
+  { id: 'indyk1998', authors: 'P. Indyk, R. Motwani', title: 'Approximate Nearest Neighbors: Towards Removing the Curse of Dimensionality (LSH)', venue: 'STOC 1998', year: 1998, url: doi('10.1145/276698.276876') },
+  { id: 'jegou2011', authors: 'H. Jégou, M. Douze, C. Schmid', title: 'Product Quantization for Nearest Neighbor Search', venue: 'IEEE TPAMI, 33(1)', year: 2011, url: doi('10.1109/TPAMI.2010.57') },
+  { id: 'johnson2019', authors: 'J. Johnson, M. Douze, H. Jégou', title: 'Billion-Scale Similarity Search with GPUs (FAISS)', venue: 'IEEE Transactions on Big Data', year: 2019, url: 'https://arxiv.org/abs/1702.08734' },
+  { id: 'aumuller2020', authors: 'M. Aumüller, E. Bernhardsson, A. Faithfull', title: 'ANN-Benchmarks: A Benchmarking Tool for Approximate Nearest Neighbor Algorithms', venue: 'Information Systems, 87', year: 2020, url: 'https://arxiv.org/abs/1807.05614' },
+  { id: 'pan2024', authors: 'J. J. Pan, J. Wang, G. Li', title: 'Survey of Vector Database Management Systems', venue: 'The VLDB Journal, 33', year: 2024, url: 'https://arxiv.org/abs/2310.14021' },
+
+  // --- OLAP и хранилища данных ---
+  { id: 'chaudhuri1997', authors: 'S. Chaudhuri, U. Dayal', title: 'An Overview of Data Warehousing and OLAP Technology', venue: 'SIGMOD Record, 26(1), 65–74', year: 1997, url: doi('10.1145/248603.248616') },
+  { id: 'gray1997', authors: 'J. Gray, S. Chaudhuri, A. Bosworth и др.', title: 'Data Cube: A Relational Aggregation Operator Generalizing Group-By, Cross-Tab, and Sub-Totals', venue: 'Data Mining and Knowledge Discovery, 1(1)', year: 1997, url: 'https://arxiv.org/abs/cs/0701155' },
+  { id: 'harinarayan1996', authors: 'V. Harinarayan, A. Rajaraman, J. D. Ullman', title: 'Implementing Data Cubes Efficiently', venue: 'SIGMOD 1996', year: 1996, url: doi('10.1145/233269.233333') },
+  { id: 'ozcan2017', authors: 'F. Özcan, Y. Tian, P. Tözün', title: 'Hybrid Transactional/Analytical Processing: A Survey', venue: 'SIGMOD 2017 (обзор)', year: 2017, url: doi('10.1145/3035918.3054784') },
+  { id: 'tpch', authors: 'Transaction Processing Performance Council', title: 'TPC-H: бенчмарк аналитических запросов', venue: 'tpc.org', year: 2022, url: 'https://www.tpc.org/tpch/' },
+
+  // --- большие данные ---
+  { id: 'ghemawat2003', authors: 'S. Ghemawat, H. Gobioff, S.-T. Leung', title: 'The Google File System', venue: 'SOSP 2003', year: 2003, url: doi('10.1145/945445.945450') },
+  { id: 'dean2008', authors: 'J. Dean, S. Ghemawat', title: 'MapReduce: Simplified Data Processing on Large Clusters', venue: 'Communications of the ACM, 51(1) (впервые — OSDI 2004)', year: 2008, url: doi('10.1145/1327452.1327492') },
+  { id: 'shvachko2010', authors: 'K. Shvachko, H. Kuang, S. Radia, R. Chansler', title: 'The Hadoop Distributed File System', venue: 'IEEE MSST 2010', year: 2010, url: doi('10.1109/MSST.2010.5496972') },
+  { id: 'thusoo2009', authors: 'A. Thusoo, J. S. Sarma, N. Jain и др.', title: 'Hive: A Warehousing Solution over a Map-Reduce Framework', venue: 'PVLDB, 2(2)', year: 2009, url: doi('10.14778/1687553.1687609') },
+  { id: 'zaharia2012', authors: 'M. Zaharia, M. Chowdhury, T. Das и др.', title: 'Resilient Distributed Datasets: A Fault-Tolerant Abstraction for In-Memory Cluster Computing (Spark)', venue: 'NSDI 2012', year: 2012, url: 'https://www.usenix.org/conference/nsdi12/technical-sessions/presentation/zaharia' },
+  { id: 'armbrust2015', authors: 'M. Armbrust, R. S. Xin, C. Lian и др.', title: 'Spark SQL: Relational Data Processing in Spark', venue: 'SIGMOD 2015', year: 2015, url: doi('10.1145/2723372.2742797') },
+  { id: 'armbrust2020', authors: 'M. Armbrust, T. Das, L. Sun и др.', title: 'Delta Lake: High-Performance ACID Table Storage over Cloud Object Stores', venue: 'PVLDB, 13(12)', year: 2020, url: 'https://www.vldb.org/pvldb/vol13/p3411-armbrust.pdf' },
+  { id: 'armbrust2021', authors: 'M. Armbrust, A. Ghodsi, R. Xin, M. Zaharia', title: 'Lakehouse: A New Generation of Open Platforms that Unify Data Warehousing and Advanced Analytics', venue: 'CIDR 2021', year: 2021, url: 'https://www.cidrdb.org/cidr2021/papers/cidr2021_paper17.pdf' },
+  { id: 'iceberg', authors: 'Apache Software Foundation', title: 'Apache Iceberg: спецификация табличного формата', venue: 'iceberg.apache.org', year: 2024, url: 'https://iceberg.apache.org/spec/' },
+  { id: 'wang2015kafka', authors: 'G. Wang, J. Koshy, S. Subramanian и др.', title: 'Building a Replicated Logging System with Apache Kafka', venue: 'PVLDB, 8(12)', year: 2015, url: 'https://www.vldb.org/pvldb/vol8/p1654-wang.pdf' },
+  { id: 'akidau2015', authors: 'T. Akidau, R. Bradshaw, C. Chambers и др.', title: 'The Dataflow Model: A Practical Approach to Balancing Correctness, Latency, and Cost in Massive-Scale, Unbounded, Out-of-Order Data Processing', venue: 'PVLDB, 8(12)', year: 2015, url: 'https://www.vldb.org/pvldb/vol8/p1792-Akidau.pdf' },
+  { id: 'carbone2015', authors: 'P. Carbone, A. Katsifodimos, S. Ewen и др.', title: 'Apache Flink: Stream and Batch Processing in a Single Engine', venue: 'IEEE Data Engineering Bulletin, 38(4)', year: 2015, url: 'http://sites.computer.org/debull/A15dec/p28.pdf' },
+
+  // --- облачные СУБД ---
+  { id: 'verbitski2017', authors: 'A. Verbitski, A. Gupta, D. Saha и др.', title: 'Amazon Aurora: Design Considerations for High Throughput Cloud-Native Relational Databases', venue: 'SIGMOD 2017', year: 2017, url: doi('10.1145/3035918.3056101') },
+  { id: 'antonopoulos2019', authors: 'P. Antonopoulos, A. Budovski, C. Diaconu и др.', title: 'Socrates: The New SQL Server in the Cloud', venue: 'SIGMOD 2019', year: 2019, url: doi('10.1145/3299869.3314047') },
+  { id: 'dageville2016', authors: 'B. Dageville, T. Cruanes, M. Zukowski и др.', title: 'The Snowflake Elastic Data Warehouse', venue: 'SIGMOD 2016', year: 2016, url: doi('10.1145/2882903.2903741') },
+  { id: 'gupta2015', authors: 'A. Gupta, D. Agarwal, D. Tan и др.', title: 'Amazon Redshift and the Case for Simpler Data Warehouses', venue: 'SIGMOD 2015', year: 2015, url: doi('10.1145/2723372.2742795') },
+  { id: 'armenatzoglou2022', authors: 'N. Armenatzoglou, S. Basu, N. Bhanoori и др.', title: 'Amazon Redshift Re-invented', venue: 'SIGMOD 2022', year: 2022, url: doi('10.1145/3514221.3526045') },
+  { id: 'melnik2020', authors: 'S. Melnik, A. Gubarev, J. J. Long и др.', title: 'Dremel: A Decade of Interactive SQL Analysis at Web Scale', venue: 'PVLDB, 13(12)', year: 2020, url: 'https://www.vldb.org/pvldb/vol13/p3461-melnik.pdf' },
+  { id: 'leis2021cloud', authors: 'V. Leis, M. Kuschewski', title: 'Towards Cost-Optimal Query Processing in the Cloud', venue: 'PVLDB, 14(9)', year: 2021, url: 'https://www.vldb.org/pvldb/vol14/p1606-leis.pdf' },
+  { id: 'durner2023', authors: 'D. Durner, V. Leis, T. Neumann', title: 'Exploiting Cloud Object Storage for High-Performance Analytics', venue: 'PVLDB, 16(11)', year: 2023, url: 'https://www.vldb.org/pvldb/vol16/p2769-durner.pdf' },
 ];

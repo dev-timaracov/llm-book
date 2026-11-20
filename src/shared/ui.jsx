@@ -4,10 +4,12 @@ import hljs from 'highlight.js/lib/core';
 import python from 'highlight.js/lib/languages/python';
 import javascript from 'highlight.js/lib/languages/javascript';
 import bash from 'highlight.js/lib/languages/bash';
+import sql from 'highlight.js/lib/languages/sql';
 
 hljs.registerLanguage('python', python);
 hljs.registerLanguage('javascript', javascript);
 hljs.registerLanguage('bash', bash);
+hljs.registerLanguage('sql', sql);
 
 /**
  * Библиография текущего учебника. Платформа оборачивает книгу в <RefsProvider refs={book.refs}>,

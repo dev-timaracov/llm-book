@@ -112,7 +112,7 @@ export default function Execution() {
       </table>
       <p>Запрос <code>SELECT u.city, sum(o.amount) FROM users u JOIN orders o ON o.user_id = u.id WHERE u.age &lt; 30 GROUP BY u.city</code> — это</p>
       <Eq t={r`\gamma_{city;\,\mathrm{sum}(amount)}\big(\text{orders}\bowtie_{user\_id=id}\sigma_{age<30}(\text{users})\big)`} />
-      <p>Одно и то же выражение можно переписать множеством эквивалентных способов (например, выполнить фильтр до или после соединения). Выбор лучшего — работа оптимизатора (глава 6).</p>
+      <p>Одно и то же выражение можно переписать множеством эквивалентных способов (например, выполнить фильтр до или после соединения). Выбор лучшего — работа оптимизатора (глава 10).</p>
 
       <h2>Модель итераторов (Volcano)</h2>
       <p>
